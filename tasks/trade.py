@@ -25,7 +25,7 @@ def on_trade_nft(event):
         _order_id = get(event, 'args.orderID')
         _from_to = get(event, 'args.fromTo', [])
         _from = get(_from_to, '[0]')
-        _to = get(_from_to, '[1]')
+        _to = _from_to[1]
         _tx_hash = get(event, 'transactionHash', '').lower()
 
         _tx = TxLogsModel.find_one({
