@@ -58,6 +58,7 @@ def on_trade_nft(event):
             'order_id': _order_id
         }, {
             'owner': _to.lower(),
+            'buy_deadline': None,
             'updated_by': 'dns-api:tasks:trade'
         })
 
