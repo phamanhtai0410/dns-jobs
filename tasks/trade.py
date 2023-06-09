@@ -27,7 +27,16 @@ def on_trade_nft(event):
         _from = get(_from_to, '[0]')
         _to = get(_from_to, '[1]')
         _tx_hash = get(event, 'transactionHash', '').lower()
-        _tx = TxLogsModel.update_one(
+
+        _tx = TxLogsModel.find_one({
+            'tx_hash': _tx_hash
+        })
+
+        if _tx:
+            debug(f"--- Trade tx {_tx_hash} already exist ---")
+            return 'DONE - on_trade_nft'
+
+        TxLogsModel.update_one(
             filter={
                 'tx_hash': _tx_hash,
                 'tx_type': TxType.TRADE
@@ -39,13 +48,8 @@ def on_trade_nft(event):
                 "updated_time": dt_utcnow(),
                 'updated_by': 'dns-api:tasks:trade'
             },
-            upsert=True,
-            return_document=ReturnDocument.BEFORE
+            upsert=True
         )
-
-        if _tx:
-            debug(f"--- Trade tx {_tx_hash} already exist ---")
-            return 'DONE - on_trade_nft'
 
         _sell_order = OrdersModel.find_one(filter={"order_id": _order_id})
 
