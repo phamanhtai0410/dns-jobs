@@ -30,7 +30,14 @@ def on_transfer_nft(event):
         _contract = get(event, 'address').lower()
         _owner = get(event, 'args.to').lower()
         _token_id = get(event, 'args.tokenId')
-        _tx = TxLogsModel.update_one(
+        _tx = TxLogsModel.find_one({
+            'tx_hash': _tx_hash
+        })
+        if _tx:
+            debug(f"--- Transfer tx {_tx_hash} already exist ---")
+            return 'DONE - on_transfer_nft'
+
+        TxLogsModel.update_one(
             filter={
                 'tx_hash': _tx_hash,
                 'contract': _contract,
@@ -46,11 +53,7 @@ def on_transfer_nft(event):
 
             },
             upsert=True,
-            return_document=ReturnDocument.BEFORE
         )
-        if _tx:
-            debug(f"--- Transfer tx {_tx_hash} already exist ---")
-            return 'DONE - on_transfer_nft'
 
         _update = {
             'updated_time': dt_utcnow(),
