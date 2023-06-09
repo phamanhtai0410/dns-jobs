@@ -14,7 +14,7 @@ from pymongo import ReturnDocument
 from lib.enums.tx_type import TxType
 from lib.logger import debug
 from lib.utils import dt_utcnow
-from models import TxLogsModel, OrdersModel
+from models import NsNftModel, TxLogsModel, OrdersModel
 from worker import worker
 
 
@@ -30,7 +30,7 @@ def on_trade_nft(event):
 
         _tx = TxLogsModel.find_one({
             'tx_hash': _tx_hash,
-            'action': 'BUY',
+            'action': TxType.TRADE,
         })
 
         if _tx:
@@ -53,6 +53,13 @@ def on_trade_nft(event):
         )
 
         _sell_order = OrdersModel.find_one(filter={"order_id": _order_id})
+
+        NsNftModel.update_one({
+            'order_id': _order_id
+        }, {
+            'owner': _to.lower(),
+            'updated_by': 'dns-api:tasks:trade'
+        })
 
         if not _sell_order:
             debug(f"--- Sell order id {_order_id} not found ---")
