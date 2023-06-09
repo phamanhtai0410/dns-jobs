@@ -23,7 +23,7 @@ def task_register_domain(event: str):
         print(event)
         _tx_hash = py_.get(event, 'transactionHash')
         _blocknumber = py_.get(event, 'blockNumber')
-        _contract = py_.get(event, 'address').lower()
+        _contract = Config.NAME_WRAPPER_CONTRACT.lower()
         _args = py_.get(event, 'args')
 
         _domain_name = py_.get(_args, 'name')
