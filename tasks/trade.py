@@ -29,7 +29,8 @@ def on_trade_nft(event):
         _tx_hash = get(event, 'transactionHash', '').lower()
 
         _tx = TxLogsModel.find_one({
-            'tx_hash': _tx_hash
+            'tx_hash': _tx_hash,
+            'action': 'BUY',
         })
 
         if _tx:

@@ -31,7 +31,9 @@ def on_transfer_nft(event):
         _owner = get(event, 'args.to').lower()
         _token_id = get(event, 'args.tokenId')
         _tx = TxLogsModel.find_one({
-            'tx_hash': _tx_hash
+            'tx_hash': _tx_hash,
+            'tx_type': TxType.TRANSFER,
+
         })
         if _tx:
             debug(f"--- Transfer tx {_tx_hash} already exist ---")
