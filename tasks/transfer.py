@@ -29,7 +29,7 @@ def on_transfer_nft(event):
         _tx_hash = get(event, 'transactionHash', '').lower()
         _contract = get(event, 'address').lower()
         _owner = get(event, 'args.to').lower()
-        _token_id = get(event, 'args.tokenId')
+        _token_id = get(event, 'args.token_id')
         _tx = TxLogsModel.find_one({
             'tx_hash': _tx_hash,
             'tx_type': TxType.TRANSFER,
