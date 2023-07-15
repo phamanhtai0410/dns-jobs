@@ -172,5 +172,5 @@ deploy_APP_NAME_API_prod:
   retry: 2
   only:
     refs:
-      - stag      
+      - master      
 
