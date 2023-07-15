@@ -152,15 +152,15 @@ deploy_APP_NAME_API_stag:
       
 deploy_APP_NAME_API_prod:
   stage: deploy
-  image: docker:19.03.1
+  image: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/base-cicd:alpine-helm-3.0.1
   tags:
-  - esol-stag-test
+  - esol-stag
   script:
     - *kubectl_config
     - mv /apps/helm-template .
     - mv /apps/helm-template-cronjob .
     - |
-      if [ "$CI_COMMIT_REF_NAME" == "prod" ]; then
+      if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
         sed -i -e "s#\[NAMESPACE\]#$NAMESPACE_PROD#g" skaffold.yaml
         sed -i -e "s#\[APP_NAME\]#$APP_NAME_API#g" skaffold.yaml
         sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA_PROD#g" skaffold.yaml
