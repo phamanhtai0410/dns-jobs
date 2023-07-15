@@ -152,9 +152,9 @@ deploy_APP_NAME_API_stag:
       
 deploy_APP_NAME_API_prod:
   stage: deploy
-  image:  968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/base-cicd:alpine-helm-3.0.1
+  image: docker:19.03.1
   tags:
-  - esol-stag
+  - esol-stag-test
   script:
     - *kubectl_config
     - mv /apps/helm-template .
