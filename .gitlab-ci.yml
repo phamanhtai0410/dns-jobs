@@ -160,7 +160,7 @@ deploy_APP_NAME_API_prod:
     - mv /apps/helm-template .
     - mv /apps/helm-template-cronjob .
     - |
-      if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
+      if [ "$CI_COMMIT_REF_NAME" == "prod" ]; then
         sed -i -e "s#\[NAMESPACE\]#$NAMESPACE_PROD#g" skaffold.yaml
         sed -i -e "s#\[APP_NAME\]#$APP_NAME_API#g" skaffold.yaml
         sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA_PROD#g" skaffold.yaml
