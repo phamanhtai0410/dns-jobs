@@ -34,9 +34,9 @@ class Config:
     CELERY_QUEUES = os.getenv('CELERY_QUEUES')
 
     CELERY_ROUTES = {
-        'worker.task_register_domain': {'queue': 'dns-domain-queue'},
-        'worker.on_trade_nft': {'queue': 'dns-domain-queue'},
-        'worker.on_transfer_nft': {'queue': 'dns-domain-queue'},
+        'worker.task_register_domain': {'queue': 'scroll-id-domain-queue'},
+        'worker.on_trade_nft': {'queue': 'scroll-id-domain-queue'},
+        'worker.on_transfer_nft': {'queue': 'scroll-id-domain-queue'},
     }
 
     # Redis
