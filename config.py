@@ -50,7 +50,7 @@ class Config:
     WALLET_IAPI = os.getenv('WALLET_IAPI')
     CONFIRM_BLOCK = 1
 
-    TOP_LEVEL_DOMAIN = '.meme'
+    TOP_LEVEL_DOMAIN = '.scroll'
 
     SIGNATURE_EXPIRE_TIME = 60 * 60
     SIGNATURE_BUY_NFT_EXPIRE_TIME = 60 * 60
